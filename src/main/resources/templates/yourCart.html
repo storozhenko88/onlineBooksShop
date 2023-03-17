@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Your cart</title>
+    <style>
+        table {
+            width: 50%; /* Ширина таблицы */
+            background: white; /* Цвет фона таблицы */
+            color: black; /* Цвет текста */
+            border-spacing: 1px; /* Расстояние между ячейками */
+        }
+        td, th {
+            background: white; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг текста */
+        }
+    </style>
+</head>
+<body>
+<h1 style="font-size: 40px;">Your cart</h1>
+<table border="1">
+    <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Price, $</th>
+        <th>Amount, $</th>
+        <th>Quantity</th>
+        <th> </th>
+    </tr>
+    <tr th:each="order: ${orders}">
+        <td align="centre">
+            <div>
+                <img th:attr="src=${order.reference}" itemprop="image" width="150" height="200" >
+            </div>
+        </td>
+        <td th:text="${order.title}"></td>
+        <td th:text="${order.price}"></td>
+        <td th:text="${order.amount}"></td>
+        <td width="150">
+            <div class="container">
+                <form action="#" th:action="@{/bookstore/cart/save/update}" th:object="${order}" method="POST">
+
+                    <input type="hidden" id="title" name="title" th:attr="value=${order.title}"/>
+
+                    <input type="number"  id="quantity" name="quantity" th:attr="value=${order.quantity}">
+                    <input type="submit" value="Update">
+
+                </form>
+            </div>
+        </td>
+        <td>
+            <div class="container">
+                <form action="#" th:action="@{/bookstore/cart/save/update}" th:object="${order}" method="POST">
+
+                    <input type="hidden" id="title1" name="title" th:attr="value=${order.title}"/>
+
+                    <input type="hidden"  id="quantity1" name="quantity" value="0">
+                    <input type="submit" value="Remove Item">
+
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>
+<p><strong>To change the quantity</strong>, enter the new quantity and click on the Update button</p>
+<p>
+</p>
+
+<form action="#" th:action="@{/bookstore}" method="GET">
+    <button>Continue Shopping</button>
+</form>
+<form action="#" th:action="@{/bookstore/cart/order}" method="POST">
+    <button>Checkout</button>
+</form>
+</body>
+</html>

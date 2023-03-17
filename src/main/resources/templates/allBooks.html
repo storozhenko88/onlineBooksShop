@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> BooK list </title>
+    <style>
+        table {
+            width: 50%; /* Ширина таблицы */
+            background: white; /* Цвет фона таблицы */
+            color: black; /* Цвет текста */
+            border-spacing: 1px; /* Расстояние между ячейками */
+        }
+        td, th {
+            background: white; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг текста */
+        }
+    </style>
+</head>
+<body>
+<h1 style="font-size: 40px;">Book List</h1>
+<table border="1">
+    <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Price, $</th>
+        <th> </th>
+    </tr>
+    <tr th:each="book: ${books}">
+        <td width="150">
+            <div>
+                <img th:attr="src=${book.reference}" itemprop="image" width="150" height="200" >
+            </div>
+        </td>
+        <td th:text="${book.title}" width="150"></td>
+        <td th:text="${book.price}" align="center" width="30"></td>
+        <td width="120">
+            <div>
+                <form action="#" th:action="@{/bookstore/cart/save}" th:object="${book}" method="POST">
+
+                    <input type="hidden" id="reference" name="reference" th:attr="value=${book.reference}" />
+                    <input type="hidden" id="title" name="title" th:attr="value=${book.title}" />
+                    <input type="hidden" id="price" name="price" th:attr="value=${book.price}" />
+
+                    <button type="submit">Add To Cart</button>
+
+                </form>
+
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

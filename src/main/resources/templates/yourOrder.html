@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Your cart</title>
+    <style>
+        table {
+            width: 50%; /* Ширина таблицы */
+            background: white; /* Цвет фона таблицы */
+            color: black; /* Цвет текста */
+            border-spacing: 1px; /* Расстояние между ячейками */
+        }
+        td, th {
+            background: white; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг текста */
+        }
+    </style>
+</head>
+<body>
+<h1 style="font-size: 40px;">Thanks for your order</h1>
+<table border="1">
+    <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Price, $</th>
+        <th>Amount, $</th>
+        <th>Quantity</th>
+    </tr>
+    <tr th:each="order: ${orders}">
+        <td align="centre">
+            <div>
+                <img th:attr="src=${order.reference}" itemprop="image" width="150" height="200" >
+            </div>
+        </td>
+        <td th:text="${order.title}"></td>
+        <td th:text="${order.price}"></td>
+        <td th:text="${order.amount}"></td>
+        <td th:text="${order.quantity}"></td>
+    </tr>
+    <tr>
+        <th>Total</th>
+        <th></th>
+        <th></th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+</table>
+<p><strong>To change the quantity</strong>, enter the new quantity and click on the Update button</p>
+<p>
+</p>
+
+<form action="#" th:action="@{/bookstore}" method="GET">
+    <button>Continue Shopping</button>
+</form>
+<form action="#" th:action="@{/bookstore/cart/order}" method="GET">
+    <button>Checkout</button>
+</form>
+</body>
+</html>
